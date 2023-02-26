@@ -18,6 +18,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.levelManager.GetLevelState() != LevelState.LevelStart)
+        {
+            return;
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
@@ -40,28 +45,42 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (GameManager.levelManager.GetLevelState() != LevelState.LevelStart)
+        {
+            return;
+        }
+
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Soldier") PickupSoldier();
+        if (collision.gameObject.tag == "Soldier") PickupSoldier(collision.gameObject);
         if (collision.gameObject.tag == "Hospital") DropOffSoldier();
         if (collision.gameObject.tag == "Tree") GameOver();
     }
 
-    private void PickupSoldier()
+    private void PickupSoldier(GameObject soldier)
     {
         Debug.Log("Pick Up Soldier");
+        GameManager.levelManager.PickupSoldier(soldier);
     }
 
     private void DropOffSoldier()
     {
         Debug.Log("Drop Off Soldier");
+        GameManager.levelManager.DropSoldier();
+
+        if (GameManager.levelManager.GameIsWon())
+        {
+            Debug.Log("You Won!");
+            GameManager.levelManager.StopGame();
+        }
     }
 
     private void GameOver()
     {
         Debug.Log("Game Over");
+        GameManager.levelManager.StopGame();
     }
 }
