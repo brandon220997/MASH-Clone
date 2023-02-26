@@ -5,22 +5,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private int currentSoldierPickup;
-    private int maxSoldierCapacity = 3;
-
-    public List<Transform> soldiers;
-    private int soldiersRescued = 0;
-
+    public static ILevelManager levelManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        soldiers = GameObject.FindGameObjectsWithTag("Soldier").Select(go => go.transform).ToList();
+        StartLevel();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void StartLevel()
+    {
+
+        levelManager = new LevelManagerService();
+        levelManager.InitializeGame();
     }
 }
