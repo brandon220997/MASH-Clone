@@ -27,8 +27,10 @@ public class Player : MonoBehaviour
         {
             if (movement.x > 0f)
                 transform.rotation = Quaternion.Euler(0f, 0f, -10f);
-            else
+            else if(movement.x < 0f)
                 transform.rotation = Quaternion.Euler(0f, 0f, 10f);
+            else
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         }
         else
         {
