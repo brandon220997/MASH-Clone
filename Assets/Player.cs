@@ -40,4 +40,26 @@ public class Player : MonoBehaviour
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.deltaTime);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Soldier") PickupSoldier();
+        if (collision.gameObject.tag == "Hospital") DropOffSoldier();
+        if (collision.gameObject.tag == "Tree") GameOver();
+    }
+
+    private void PickupSoldier()
+    {
+        Debug.Log("Pick Up Soldier");
+    }
+
+    private void DropOffSoldier()
+    {
+        Debug.Log("Drop Off Soldier");
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over");
+    }
 }
