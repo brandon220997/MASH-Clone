@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.levelManager.GetLevelState() != LevelState.LevelStart)
+        if (GameManager.level.GetLevelState() != LevelState.LevelStart)
         {
             return;
         }
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.levelManager.GetLevelState() != LevelState.LevelStart)
+        if (GameManager.level.GetLevelState() != LevelState.LevelStart)
         {
             return;
         }
@@ -63,24 +63,31 @@ public class Player : MonoBehaviour
     private void PickupSoldier(GameObject soldier)
     {
         Debug.Log("Pick Up Soldier");
-        GameManager.levelManager.PickupSoldier(soldier);
+        GameManager.level.PickupSoldier(soldier);
+
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.level.GetSoldiersInHeliCount());
     }
 
     private void DropOffSoldier()
     {
         Debug.Log("Drop Off Soldier");
-        GameManager.levelManager.DropSoldier();
+        GameManager.level.DropSoldier();
 
-        if (GameManager.levelManager.GameIsWon())
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.level.GetSoldiersInHeliCount());
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldiersRescued(GameManager.level.GetSoldiersRescuedCount());
+
+        if (GameManager.level.GameIsWon())
         {
             Debug.Log("You Won!");
-            GameManager.levelManager.StopGame();
+            GameManager.level.StopGame();
+            GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.level.GameIsWon());
         }
     }
 
     private void GameOver()
     {
         Debug.Log("Game Over");
-        GameManager.levelManager.StopGame();
+        GameManager.level.StopGame();
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.level.GameIsWon());
     }
 }
