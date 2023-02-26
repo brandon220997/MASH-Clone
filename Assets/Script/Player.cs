@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.level.GetLevelState() != LevelState.LevelStart)
+        if (GameManager.levelService.GetLevelState() != LevelState.LevelStart)
         {
             return;
         }
@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.level.GetLevelState() != LevelState.LevelStart)
+        if (GameManager.levelService.GetLevelState() != LevelState.LevelStart)
         {
             return;
         }
@@ -63,31 +63,31 @@ public class Player : MonoBehaviour
     private void PickupSoldier(GameObject soldier)
     {
         Debug.Log("Pick Up Soldier");
-        GameManager.level.PickupSoldier(soldier);
+        GameManager.levelService.PickupSoldier(soldier);
 
-        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.level.GetSoldiersInHeliCount());
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.levelService.GetSoldiersInHeliCount());
     }
 
     private void DropOffSoldier()
     {
         Debug.Log("Drop Off Soldier");
-        GameManager.level.DropSoldier();
+        GameManager.levelService.DropSoldier();
 
-        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.level.GetSoldiersInHeliCount());
-        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldiersRescued(GameManager.level.GetSoldiersRescuedCount());
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.levelService.GetSoldiersInHeliCount());
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldiersRescued(GameManager.levelService.GetSoldiersRescuedCount());
 
-        if (GameManager.level.GameIsWon())
+        if (GameManager.levelService.GameIsWon())
         {
             Debug.Log("You Won!");
-            GameManager.level.StopGame();
-            GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.level.GameIsWon());
+            GameManager.levelService.StopGame();
+            GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.levelService.GameIsWon());
         }
     }
 
     private void GameOver()
     {
         Debug.Log("Game Over");
-        GameManager.level.StopGame();
-        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.level.GameIsWon());
+        GameManager.levelService.StopGame();
+        GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.levelService.GameIsWon());
     }
 }

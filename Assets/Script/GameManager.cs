@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static ILevel level;
+    public static ILevelService levelService;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartLevel();
+
     }
 
     // Update is called once per frame
@@ -19,10 +19,10 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private void StartLevel()
+    public static void StartLevel()
     {
 
-        level = new LevelService();
-        level.InitializeGame();
+        levelService = new LevelService();
+        levelService.InitializeGame();
     }
 }
