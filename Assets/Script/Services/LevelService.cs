@@ -8,7 +8,7 @@ public enum LevelState
     LevelStop,
 }
 
-public class LevelManagerService : ILevelManager
+public class LevelService : ILevel
 {
     public LevelState levelState;
 
@@ -18,18 +18,18 @@ public class LevelManagerService : ILevelManager
     private List<Transform> soldiers;
     private int soldiersRescued = 0;
 
-    void ILevelManager.InitializeGame()
+    void ILevel.InitializeGame()
     {
         soldiers = GameObject.FindGameObjectsWithTag("Soldier").Select(go => go.transform).ToList();
         levelState = LevelState.LevelStart;
     }
 
-    LevelState ILevelManager.GetLevelState()
+    LevelState ILevel.GetLevelState()
     {
         return levelState;
     }
 
-    void ILevelManager.PickupSoldier(GameObject soldier)
+    void ILevel.PickupSoldier(GameObject soldier)
     {
         if(currentSoldierPickup < maxSoldierCapacity)
         {
@@ -38,21 +38,29 @@ public class LevelManagerService : ILevelManager
         }
     }
 
-    void ILevelManager.DropSoldier()
+    void ILevel.DropSoldier()
     {
         soldiersRescued += currentSoldierPickup;
         currentSoldierPickup = 0;
-
-        if (soldiersRescued == soldiers.Count()) Debug.Log("You Won!");
     }
 
-    bool ILevelManager.GameIsWon()
+    bool ILevel.GameIsWon()
     {
         return soldiersRescued == soldiers.Count();
     }
 
-    void ILevelManager.StopGame()
+    void ILevel.StopGame()
     {
         levelState = LevelState.LevelStop;
+    }
+
+    int ILevel.GetSoldiersInHeliCount()
+    {
+        return currentSoldierPickup;
+    }
+
+    int ILevel.GetSoldiersRescuedCount()
+    {
+        return soldiersRescued;
     }
 }
