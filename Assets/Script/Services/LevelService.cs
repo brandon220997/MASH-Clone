@@ -8,7 +8,7 @@ public enum LevelState
     LevelStop,
 }
 
-public class LevelService : ILevel
+public class LevelService : ILevelService
 {
     public LevelState levelState;
 
@@ -18,18 +18,18 @@ public class LevelService : ILevel
     private List<Transform> soldiers;
     private int soldiersRescued = 0;
 
-    void ILevel.InitializeGame()
+    void ILevelService.InitializeGame()
     {
         soldiers = GameObject.FindGameObjectsWithTag("Soldier").Select(go => go.transform).ToList();
         levelState = LevelState.LevelStart;
     }
 
-    LevelState ILevel.GetLevelState()
+    LevelState ILevelService.GetLevelState()
     {
         return levelState;
     }
 
-    void ILevel.PickupSoldier(GameObject soldier)
+    void ILevelService.PickupSoldier(GameObject soldier)
     {
         if(currentSoldierPickup < maxSoldierCapacity)
         {
@@ -38,28 +38,28 @@ public class LevelService : ILevel
         }
     }
 
-    void ILevel.DropSoldier()
+    void ILevelService.DropSoldier()
     {
         soldiersRescued += currentSoldierPickup;
         currentSoldierPickup = 0;
     }
 
-    bool ILevel.GameIsWon()
+    bool ILevelService.GameIsWon()
     {
         return soldiersRescued == soldiers.Count();
     }
 
-    void ILevel.StopGame()
+    void ILevelService.StopGame()
     {
         levelState = LevelState.LevelStop;
     }
 
-    int ILevel.GetSoldiersInHeliCount()
+    int ILevelService.GetSoldiersInHeliCount()
     {
         return currentSoldierPickup;
     }
 
-    int ILevel.GetSoldiersRescuedCount()
+    int ILevelService.GetSoldiersRescuedCount()
     {
         return soldiersRescued;
     }
