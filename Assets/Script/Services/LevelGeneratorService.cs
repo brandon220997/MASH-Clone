@@ -16,7 +16,7 @@ public enum SpawnType
 public class LevelGeneratorService : ILevelGeneratorService
 {
     private float[,] spawnRanges = { { 1.5f , 2f },
-                                     { 2f , 3.3f } };
+                                     { 2f , 3.5f } };
 
     private int spawnTries = 50;
     private int maxSoldiers = 3;
