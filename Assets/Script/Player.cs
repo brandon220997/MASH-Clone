@@ -8,13 +8,14 @@ public class Player : MonoBehaviour
     public Rigidbody2D rb;
     public AudioSource sfxAudio;
     public AudioSource helicopterAudio;
+    public Animator helicopterAnimator;
 
     private Vector2 movement;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        helicopterAnimator.speed = 0f;
     }
 
     // Update is called once per frame
@@ -34,6 +35,8 @@ public class Player : MonoBehaviour
         {
             if(helicopterAudio.clip == null)
             {
+                helicopterAnimator.speed = 1f;
+
                 helicopterAudio.clip = GameManager.audioService.GetAudioClip("Helicopter");
                 helicopterAudio.loop = true;
                 helicopterAudio.Play();
@@ -94,6 +97,7 @@ public class Player : MonoBehaviour
             Debug.Log("You Won!");
             helicopterAudio.Stop();
             GameManager.levelService.StopGame();
+            helicopterAnimator.speed = 0f;
             GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.levelService.GameIsWon());
         }
     }
@@ -104,6 +108,7 @@ public class Player : MonoBehaviour
 
         Debug.Log("Game Over");
         helicopterAudio.Stop();
+        helicopterAnimator.speed = 0f;
         GameManager.levelService.StopGame();
         GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.levelService.GameIsWon());
     }

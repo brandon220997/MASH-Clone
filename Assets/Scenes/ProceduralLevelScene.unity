@@ -1779,6 +1779,10 @@ PrefabInstance:
       propertyPath: helicopterAudio
       value: 
       objectReference: {fileID: 4574960049870409530}
+    - target: {fileID: 4574960051099812243, guid: e2ca098e74c0cd045b7618eb0c6686f5, type: 3}
+      propertyPath: helicopterAnimator
+      value: 
+      objectReference: {fileID: 4574960049870409532}
     - target: {fileID: 4574960051099812246, guid: e2ca098e74c0cd045b7618eb0c6686f5, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -1823,6 +1827,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4574960051099812247, guid: e2ca098e74c0cd045b7618eb0c6686f5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1338243759, guid: e0098e6fa40fe29409ae49b218ad95ce, type: 3}
     - target: {fileID: 4574960051099812264, guid: e2ca098e74c0cd045b7618eb0c6686f5, type: 3}
       propertyPath: m_Name
       value: Helicopter
@@ -2031,6 +2039,26 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4574960051099812246, guid: e2ca098e74c0cd045b7618eb0c6686f5, type: 3}
   m_PrefabInstance: {fileID: 4574960049870409527}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &4574960049870409532
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4574960049870409528}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e07176f6b1c9f03469ee5374dedcf23c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &5321542263293407104
 PrefabInstance:
   m_ObjectHideFlags: 0
