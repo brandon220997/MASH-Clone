@@ -6,8 +6,8 @@ public interface ILevelService
 {
     void InitializeGame();
     LevelState GetLevelState();
-    void PickupSoldier(GameObject soldier);
-    void DropSoldier();
+    bool PickupSoldier(GameObject soldier);
+    bool DropSoldier();
     int GetSoldiersInHeliCount();
     int GetSoldiersRescuedCount();
     bool GameIsWon();

@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
 
     void Awake()
     {
-        GameManager.StartLevel();
+        GameManager.instance.StartLevel();
     }
 
     void Start()
@@ -20,13 +20,23 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.R) && GameManager.levelService.GetLevelState() == LevelState.LevelStop)
+        if(GameManager.levelService.GetLevelState() == LevelState.LevelStart)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
-        else if (Input.GetKeyUp(KeyCode.Escape) && GameManager.levelService.GetLevelState() == LevelState.LevelStop)
+        else if(GameManager.levelService.GetLevelState() == LevelState.LevelStop)
         {
-            SceneManager.LoadScene("MainMenuScene");
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            else if (Input.GetKeyUp(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("MainMenuScene");
+            }
         }
     }
 }

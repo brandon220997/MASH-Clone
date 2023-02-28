@@ -29,19 +29,30 @@ public class LevelService : ILevelService
         return levelState;
     }
 
-    void ILevelService.PickupSoldier(GameObject soldier)
+    bool ILevelService.PickupSoldier(GameObject soldier)
     {
         if(currentSoldierPickup < maxSoldierCapacity)
         {
             currentSoldierPickup++;
             soldier.SetActive(false);
+
+            return true;
         }
+
+        return false;
     }
 
-    void ILevelService.DropSoldier()
+    bool ILevelService.DropSoldier()
     {
-        soldiersRescued += currentSoldierPickup;
-        currentSoldierPickup = 0;
+        if(currentSoldierPickup > 0)
+        {
+            soldiersRescued += currentSoldierPickup;
+            currentSoldierPickup = 0;
+
+            return true;
+        }
+
+        return false;
     }
 
     bool ILevelService.GameIsWon()

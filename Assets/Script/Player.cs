@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
+    public AudioSource sfxAudio;
+    public AudioSource helicopterAudio;
 
     private Vector2 movement;
 
@@ -30,6 +32,13 @@ public class Player : MonoBehaviour
 
         if (movement.x != 0f || movement.y != 0f)
         {
+            if(helicopterAudio.clip == null)
+            {
+                helicopterAudio.clip = GameManager.audioService.GetAudioClip("Helicopter");
+                helicopterAudio.loop = true;
+                helicopterAudio.Play();
+            }
+
             if (movement.x > 0f)
                 transform.rotation = Quaternion.Euler(0f, 0f, -10f);
             else if(movement.x < 0f)
@@ -63,7 +72,9 @@ public class Player : MonoBehaviour
     private void PickupSoldier(GameObject soldier)
     {
         Debug.Log("Pick Up Soldier");
-        GameManager.levelService.PickupSoldier(soldier);
+        bool pickedUp = GameManager.levelService.PickupSoldier(soldier);
+
+        if(pickedUp) sfxAudio.PlayOneShot(GameManager.audioService.GetAudioClip("Pickup"));
 
         GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.levelService.GetSoldiersInHeliCount());
     }
@@ -71,7 +82,9 @@ public class Player : MonoBehaviour
     private void DropOffSoldier()
     {
         Debug.Log("Drop Off Soldier");
-        GameManager.levelService.DropSoldier();
+        bool droppedOff = GameManager.levelService.DropSoldier();
+
+        if (droppedOff) sfxAudio.PlayOneShot(GameManager.audioService.GetAudioClip("DropOff"));
 
         GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldierInHelicopter(GameManager.levelService.GetSoldiersInHeliCount());
         GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.updateSoldiersRescued(GameManager.levelService.GetSoldiersRescuedCount());
@@ -79,6 +92,7 @@ public class Player : MonoBehaviour
         if (GameManager.levelService.GameIsWon())
         {
             Debug.Log("You Won!");
+            helicopterAudio.Stop();
             GameManager.levelService.StopGame();
             GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.levelService.GameIsWon());
         }
@@ -86,7 +100,10 @@ public class Player : MonoBehaviour
 
     private void GameOver()
     {
+        sfxAudio.PlayOneShot(GameManager.audioService.GetAudioClip("Explosion"));
+
         Debug.Log("Game Over");
+        helicopterAudio.Stop();
         GameManager.levelService.StopGame();
         GameObject.Find("Level Manager").GetComponent<LevelManager>().levelUI.displayGameEndScreen(GameManager.levelService.GameIsWon());
     }

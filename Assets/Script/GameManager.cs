@@ -5,21 +5,35 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
+    // Services
     public static ILevelService levelService;
+    public static IAudioService audioService;
+
+    // Collections
+    public AudioCollection audioCollection;
+
+    private void Awake()
+    {
+        if(instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        audioService = new AudioService(audioCollection);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public static void StartLevel()
+    public void StartLevel()
     {
 
         levelService = new LevelService();
