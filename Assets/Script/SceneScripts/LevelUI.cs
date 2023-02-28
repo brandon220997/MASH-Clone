@@ -8,7 +8,6 @@ public class LevelUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI gameEndText;
     [SerializeField] private GameObject gameEndScreen;
-
     [SerializeField] private TextMeshProUGUI soldierInHelicopter;
     [SerializeField] private TextMeshProUGUI soldiersRescued;
 
