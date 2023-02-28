@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9a80189786ad5d43975a271f9421c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoldierPrefab: {fileID: 3352610593829819000, guid: 9f0844818b7817d45bd18e082af613f7, type: 3}
+  TreePrefab: {fileID: 2946061244622841918, guid: 8d13c4c4c483bce4d954f6152ca5f820, type: 3}
   audioCollection: {fileID: 130667151}
 --- !u!4 &130667150
 Transform:

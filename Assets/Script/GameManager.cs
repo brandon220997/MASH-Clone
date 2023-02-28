@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     // Services
+    public static ILevelGeneratorService levelGeneratorService;
     public static ILevelService levelService;
     public static IAudioService audioService;
 
@@ -31,11 +32,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         audioService = new AudioService(audioCollection);
+        levelGeneratorService = new LevelGeneratorService();
     }
 
     public void StartLevel()
     {
-
         levelService = new LevelService();
         levelService.InitializeGame();
     }
